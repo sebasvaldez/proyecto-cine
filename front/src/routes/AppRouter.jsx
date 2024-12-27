@@ -8,26 +8,28 @@ import { LoginPage } from "../pages/LoginPage";
 export const AppRouter = () => {
   return (
     <Routes>
-        <Route path= "/home" element={<HomePage />} />
-        <Route path= "/movie/:id" element={<MoviePage />} />
+      <Route path="/home" element={<HomePage />} />
+      <Route path="/movie/:id" element={<MoviePage />} />
 
+      <Route
+        path="/login"
+        element={
+          <PublicRoutes>
+            <LoginPage />
+          </PublicRoutes>
+        }
+      />
 
-        <Route path= "/login" element={
-            <PublicRoutes>
-                <LoginPage />
-            </PublicRoutes>
-        } />
+      <Route
+        path="/profile"
+        element={
+          <PrivateRoutes>
+            <ProfilePage />
+          </PrivateRoutes>
+        }
+      />
 
-        <Route path= "/profile" element={
-            <PrivateRoutes>
-                <ProfilePage />
-
-        </PrivateRoutes>} />
-
-
-
-
-        <Route path="*" element={<Navigate to="/home" />} />
+      <Route path="*" element={<Navigate to="/home" />} />
     </Routes>
   );
 };
