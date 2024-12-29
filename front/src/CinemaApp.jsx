@@ -1,6 +1,6 @@
 import React from "react";
 import { AppRouter } from "./routes/AppRouter";
-import { Navbar } from "./components/layout";
+import { Footer, Navbar } from "./components/layout";
 import {  Box } from "@mui/material";
 import {useMediaQ} from "./hooks/useMediaQ";
 
@@ -27,6 +27,7 @@ export const CinemaApp = () => {
       <AppRouter />
 
       </Box>
+      <Footer />
     </Box>
   );
 };
