@@ -27,10 +27,11 @@ export const PopperInfo = () => {
         type="button"
         onClick={handleClick}
         style={{
-          color: "white-smoke",
           backgroundColor: "#333",
           border: "none",
           cursor: "pointer",
+          margin: "0",
+          color: "inherit"
         }}
       >
         Info
@@ -38,12 +39,10 @@ export const PopperInfo = () => {
       <Popper id={id} open={open} anchorEl={anchorEl} transition>
         {({ TransitionProps }) => (
           <Fade {...TransitionProps} timeout={350}>
-            <Box sx={{ border: 1, p: 1, bgcolor: "#333" }}>
+            <Box sx={{ border: 1, p: 1, bgcolor: "#333", color: "white" }}>
               <Typography
                 variant="p"
-                sx={{
-                  bgcolor: "#333",
-                }}
+                
               >
                 Proyecto realizado con React y Material-UI.
                 <br />

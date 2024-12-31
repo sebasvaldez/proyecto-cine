@@ -1,11 +1,10 @@
 import { Link } from "react-router-dom";
-import { AppBar, Box, Toolbar, Typography, IconButton } from "@mui/material/";
+import { AppBar, Box, Toolbar, Typography, Button } from "@mui/material/";
 
-import MenuIcon from "@mui/icons-material/Menu";
 
-export const Navbar = () => {
+export const Navbar = ({toggleDarkMode, darkMode}) => {
   return (
-    <Box>
+    <Box sx={{ bgcolor: "#020c14" }}>
       <AppBar position="static">
         <Toolbar>
           <Typography
@@ -13,16 +12,23 @@ export const Navbar = () => {
             component="div"
             sx={{ flexGrow: 1, textDecoration: "none" }}
           >
-            <Link to="/" style={{ textDecoration: "none", color: "white" }}>
+            <Link to="/" style={{ textDecoration: "none", color: "black" }}>
               Proyecto cine
             </Link>
           </Typography>
-          <Link
+          {/* <Link
             to={"/login"}
-            style={{ textDecoration: "none", color: "white" }}
+            style={{ textDecoration: "none", color: "black" }}
           >
             Login
-          </Link>
+          </Link> */}
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={toggleDarkMode}
+          >
+            {darkMode ? "Light Mode" : "Dark Mode"}
+            </Button>  
         </Toolbar>
       </AppBar>
     </Box>
