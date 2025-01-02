@@ -1,8 +1,17 @@
 import { Link } from "react-router-dom";
 import { AppBar, Box, Toolbar, Typography, Button } from "@mui/material/";
+import { SwitchDarkMode } from "./SwitchDarkMode";
+import { useAuth } from "../../hooks/useAuth";
 
 
-export const Navbar = ({toggleDarkMode, darkMode}) => {
+export const Navbar = () => {
+
+
+  const {darkMode, setDarkMode} = useAuth();
+
+  const toggleDarkMode= ()=> setDarkMode(!darkMode)
+
+
   return (
     <Box sx={{ bgcolor: "#020c14" }}>
       <AppBar position="static">
@@ -12,23 +21,12 @@ export const Navbar = ({toggleDarkMode, darkMode}) => {
             component="div"
             sx={{ flexGrow: 1, textDecoration: "none" }}
           >
-            <Link to="/" style={{ textDecoration: "none", color: "black" }}>
+            <Link to="/" style={{ textDecoration: "none", color: "white" }}>
               Proyecto cine
             </Link>
           </Typography>
-          {/* <Link
-            to={"/login"}
-            style={{ textDecoration: "none", color: "black" }}
-          >
-            Login
-          </Link> */}
-          <Button
-            variant="contained"
-            color="secondary"
-            onClick={toggleDarkMode}
-          >
-            {darkMode ? "Light Mode" : "Dark Mode"}
-            </Button>  
+
+          <SwitchDarkMode darkMode={darkMode} toggleDarkMode={toggleDarkMode}  />
         </Toolbar>
       </AppBar>
     </Box>

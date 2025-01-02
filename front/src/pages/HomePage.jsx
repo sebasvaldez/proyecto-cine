@@ -4,7 +4,6 @@ import { MovieCard } from "../components/layout/MovieCard";
 import { useMediaQ } from "../hooks/useMediaQ";
 import gladiador from "../assets/front-page/gladiador.jpg";
 import proximoEstreno from "../assets/front-page/proximoEstreno.jpg";
-import { Footer } from "../components/layout";
 
 export const HomePage = () => {
   const { isMovile, isTablet } = useMediaQ();

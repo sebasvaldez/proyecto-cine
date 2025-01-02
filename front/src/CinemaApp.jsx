@@ -1,27 +1,28 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { AppRouter } from "./routes/AppRouter";
 import { Footer, Navbar } from "./components/layout";
 import { Box, CssBaseline } from "@mui/material";
 import { useMediaQ } from "./hooks/useMediaQ";
 import { darkTheme } from "./theme/theme";
 import {ThemeProvider} from "@mui/material/styles"
+import { useAuth } from "./hooks/useAuth";
 
 export const CinemaApp = () => {
 
-  const [darkMode, setDarkMode] = useState(true)
+  const {darkMode} = useAuth()
 
+ 
   const theme = useMemo(()=>darkTheme(darkMode), [darkMode])
   
   const { isMovile, isTablet, isDesktop } = useMediaQ();
 
-  console.log(darkMode)
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
    
     
-      <Navbar toggleDarkMode={()=>setDarkMode(!darkMode)} darkMode={darkMode}/>
+      <Navbar/>
 
       <Box
         sx={{
