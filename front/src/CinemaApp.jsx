@@ -4,40 +4,42 @@ import { Footer, Navbar } from "./components/layout";
 import { Box, CssBaseline } from "@mui/material";
 import { useMediaQ } from "./hooks/useMediaQ";
 import { darkTheme } from "./theme/theme";
-import {ThemeProvider} from "@mui/material/styles"
+import { ThemeProvider } from "@mui/material/styles";
 import { useAuth } from "./hooks/useAuth";
 
 export const CinemaApp = () => {
+  const { darkMode } = useAuth();
 
-  const {darkMode} = useAuth()
+  const theme = useMemo(() => darkTheme(darkMode), [darkMode]);
 
- 
-  const theme = useMemo(()=>darkTheme(darkMode), [darkMode])
-  
   const { isMovile, isTablet, isDesktop } = useMediaQ();
-
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-   
-    
-      <Navbar/>
-
       <Box
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          marginX: isMovile ? 0 : isTablet || isDesktop ? 4 : 5,
-          marginTop: 2,
+          display: "grid",
+          gridTemplateRows: "auto 1fr auto",
+          minHeight: "100dvh",
         }}
       >
-        <AppRouter />
+        <Navbar />
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            marginX: isMovile ? 0 : isTablet || isDesktop ? 4 : 5,
+            marginTop: 2,
+          }}
+        >
+          <AppRouter />
+        </Box>
+        <Footer />
       </Box>
-      <Footer />
-    
     </ThemeProvider>
   );
 };

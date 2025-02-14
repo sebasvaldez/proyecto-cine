@@ -36,6 +36,7 @@ export const HomePage = () => {
           width: "90%",
           margin: "auto",
           marginTop: 2,
+          justifyContent: "space-between",
         }}
       >
         <MovieCard image={gladiador} />

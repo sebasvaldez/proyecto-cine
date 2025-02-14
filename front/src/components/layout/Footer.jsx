@@ -1,4 +1,5 @@
-import { Box, Container, IconButton, Typography } from "@mui/material";
+import { Link as RouterLink } from "react-router-dom";
+import { Box, Container, IconButton, Typography, Link } from "@mui/material";
 import LinkedInIcon from "@mui/icons-material/LinkedIn";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import WorkIcon from "@mui/icons-material/Work";
@@ -18,21 +19,8 @@ export const Footer = () => {
         flexDirection: "column",
         marginTop: 2,
         padding: 3,
-      
       }}
     >
-      {/* <Typography
-        variant="h6"
-        sx={{
-          textAlign: "center",
-          bgcolor: "#333",
-          color: "#808080",
-          padding: 1,
-        }}
-      >
-        Proyecto Cine
-      </Typography> */}
-
       <Box
         sx={{
           display: "flex",
@@ -114,18 +102,37 @@ export const Footer = () => {
           >
             Contacto
           </Typography>
+
+          <Link
+            component={RouterLink}
+            to="/login"
+            sx={{ textDecoration: "none" }}
+          >
+            <Typography
+              sx={{
+                bgcolor: "#333",
+                color: "#808080",
+                paddingLeft: 2,
+              }}
+            >
+              Acceso
+            </Typography>
+          </Link>
         </Container>
 
         <Container
-        sx={{
-          bgcolor: "#333",
-          display: "flex",
-          alignItems: "start",
-          flexDirection: "column",
-          justifyContentc: "center",
-        }}
+          sx={{
+            bgcolor: "#333",
+            display: "flex",
+            alignItems: "start",
+            flexDirection: "column",
+            justifyContentc: "center",
+
+          }}
         >
-        <PopperInfo />
+          <PopperInfo />
+
+          
         </Container>
       </Box>
     </Box>
