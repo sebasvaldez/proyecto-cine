@@ -1,12 +1,14 @@
-import pg from "pg";
+import mongoose from "mongoose";
 
-export const pool= new pg.Pool({
-    port: 5432,
-    host: "localhost",
-    user: "postgres",
-    password: "sebas123",
-})
 
-pool.on("connect",()=>{
-    console.log("Database connected")
-})
+export const connectDB= async ()=>{
+    try {
+        await mongoose.connect("mongodb://localhost:27017/cinema-proyect");
+        console.log("Database connected");
+        
+    } catch (error) {
+        console.error("Error connecting to the database");
+        console.error(error);
+        
+    }
+}
