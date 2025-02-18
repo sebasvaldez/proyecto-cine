@@ -6,6 +6,8 @@ import {
   updateMovie,
   deleteMovie,
 } from "../controllers/movies.controllers.js";
+import { isAuth } from "../middlewares/auth.middleware.js";
+
 
 const router = Router();
 

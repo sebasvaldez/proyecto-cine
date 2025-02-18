@@ -1,19 +1,40 @@
-
-
-
-
+import Movie from "../models/movie.model.js";
 
 export const getMovies = (req, res) => {
-  res.send("Obteniendo todas las peliculas");
+
+  
+
+
 };
 export const getMovie = (req, res) => {
   res.send("Obteniendo la pelicula con id " + req.params.id);
 };
 
-export const createMovie = (req, res) => {
-  const {hola}= req.body
-  console.log(hola)
-  res.send("Creando una nueva pelicula");
+export const createMovie = async (req, res) => {
+  const {
+    title,
+    synopsis,
+    genre,
+    cast,
+    director,
+    duration,
+    coverUrl,
+    trailerUrl,
+  } = req.body;
+
+  const newMovie = new Movie({
+    title,
+    synopsis,
+    genre,
+    cast,
+    director,
+    duration,
+    coverUrl,
+    trailerUrl,
+  });
+
+  const movieSaved = await newMovie.save();
+  res.json(movieSaved);
 };
 
 export const updateMovie = (req, res) => {

@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const movieSchema = mongoose.Schema({
+const movieSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true,
@@ -12,12 +12,12 @@ const movieSchema = mongoose.Schema({
     trim: true,
   },
   genre: {
-    type: String,
+    type: Array,
     required: true,
     trim: true,
   },
   cast: {
-    type: String,
+    type: Array,
     required: true,
     trim: true,
   },
@@ -41,3 +41,5 @@ const movieSchema = mongoose.Schema({
     trim: true,
   },
 });
+
+export default mongoose.model("Movie", movieSchema);
