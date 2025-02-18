@@ -26,8 +26,9 @@ export const login = async (req, res) => {
     }
   } catch (error) {}
 };
-export const logOut = (req, res) => {
-  
+export const logOut = async (req, res) => {
+  res.clearCookie("token", "");
+  res.send("Sesión cerrada");
 };
 
 export const register = async (req, res) => {
@@ -54,6 +55,6 @@ export const register = async (req, res) => {
   }
 };
 
-export const profile = (req, res) => {
-  res.send("Obteniendo el perfil del usuario");
+export const profile = async (req, res) => {
+  
 };

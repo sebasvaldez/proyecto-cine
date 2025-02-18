@@ -5,20 +5,19 @@ import {
   createMovie,
   updateMovie,
   deleteMovie,
-} from "../controllers/movies.controllers.js";
+} from "../controllers/movies.controller.js";
 import { isAuth } from "../middlewares/auth.middleware.js";
-
 
 const router = Router();
 
-router.get("/movies", getMovies);
+router.get("/movies", isAuth, getMovies);
 
-router.get("/movies/:id", getMovie);
+router.get("/movies/:id", isAuth, getMovie);
 
-router.post("/movies", createMovie);
+router.post("/movies", isAuth, createMovie);
 
-router.put("/movies/:id", updateMovie);
+router.put("/movies/:id", isAuth, updateMovie);
 
-router.delete("/movies/:id", deleteMovie);
+router.delete("/movies/:id", isAuth, deleteMovie);
 
 export default router;
