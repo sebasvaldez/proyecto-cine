@@ -10,7 +10,7 @@ import { isAuth } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.get("/movies", isAuth, getMovies);
+router.get("/movies",isAuth, getMovies);
 
 router.get("/movies/:id", isAuth, getMovie);
 

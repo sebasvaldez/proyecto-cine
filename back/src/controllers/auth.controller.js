@@ -3,6 +3,7 @@ import bcrypt from "bcrypt";
 import { createAccessToken } from "../libs/jwt.js";
 
 export const login = async (req, res) => {
+  console.log(req.userId)
   const { email, password } = req.body;
 
   try {
@@ -16,10 +17,10 @@ export const login = async (req, res) => {
       } else {
         const token = await createAccessToken({ id: user._id });
         res.cookie("token", token, {
-          httpOnly: true,
+          httpOnly: false,
           sameSite: "none",
-          secure: true,
-          maxAge: 24 * 60 * 60, // 1 day
+          secure: false,
+          maxAge: 24 * 60 * 60 * 1000, //
         });
         res.json(user);
       }
@@ -45,8 +46,8 @@ export const register = async (req, res) => {
     res.cookie("token", token, {
       httpOnly: true,
       sameSite: "none",
-      secure: true,
-      maxAge: 24 * 60 * 60, // 1 day
+      secure: false,
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
     res.json(userSaved);
   } catch (error) {
@@ -56,5 +57,15 @@ export const register = async (req, res) => {
 };
 
 export const profile = async (req, res) => {
-  
+  try {
+    const user = await User.findById(req.userId);
+    if (!user) {
+      return res.status(404).send("Usuario no encontrado");
+    }
+    res.json(user);
+
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error al obtener usuario");
+  }
 };

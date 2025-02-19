@@ -3,7 +3,7 @@ import Movie from "../models/movie.model.js";
 
 export const getMovies = async (req, res) => {
   try {
-    const movies = await Movie.find();
+    const movies = await Movie.find().populate("user","name email");
     if (!movies) return res.status(404).json({ message: "No hay peliculas" });
     res.json(movies);
   } catch (error) {
@@ -43,6 +43,7 @@ export const createMovie = async (req, res) => {
     duration,
     coverUrl,
     trailerUrl,
+    user: req.userId,
   });
 
   const movieSaved = await newMovie.save();
