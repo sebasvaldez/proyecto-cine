@@ -3,7 +3,7 @@ import bcrypt from "bcrypt";
 import { createAccessToken } from "../libs/jwt.js";
 
 export const login = async (req, res) => {
-  console.log(req.userId)
+  console.log(req.userId);
   const { email, password } = req.body;
 
   try {
@@ -51,8 +51,9 @@ export const register = async (req, res) => {
     });
     res.json(userSaved);
   } catch (error) {
-    console.log(error);
-    res.status(500).send("Error al registrar usuario");
+    if (error.code === 11000) {
+      return res.status(400).json({ message: "El email ya esta registrado" });
+    }
   }
 };
 
@@ -63,7 +64,6 @@ export const profile = async (req, res) => {
       return res.status(404).send("Usuario no encontrado");
     }
     res.json(user);
-
   } catch (error) {
     console.log(error);
     res.status(500).send("Error al obtener usuario");

@@ -13,7 +13,7 @@ export const getMovies = async (req, res) => {
 export const getMovie = async (req, res) => {
   const id = req.params.id;
   try {
-    const movie = await Movie.findById(id);
+    const movie = await Movie.findById(id).populate("user","name email");
     if (!movie)
       return res.status(404).json({ message: "Pelicula no encontrada" });
     res.json(movie);
