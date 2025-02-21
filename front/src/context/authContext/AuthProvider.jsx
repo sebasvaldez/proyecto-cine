@@ -29,9 +29,7 @@ export const AuthProvider = ({ children }) => {
         user,
         setUser,
         isLoading,
-        setIsLoading,
         activeUser,
-        setActiveUser,
         darkMode,
         setDarkMode,
       }}

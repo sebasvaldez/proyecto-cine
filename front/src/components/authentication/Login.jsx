@@ -1,38 +1,24 @@
-import { useForm } from "../../hooks/useForm";
-import { useMediaQ } from "../../hooks/useMediaQ";
+import { useForm } from "react-hook-form";
+import { ButtonMUI, InputMUI, FormMUI, BoxMUI } from "../../ui";
 
-import { Button, TextField, FormControl, Box, Typography } from "@mui/material";
+import { FormControl, Typography } from "@mui/material";
 
 export const Login = () => {
-  const { isMovile, isTablet } = useMediaQ();
-  const {}= useForm()
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
+  const onSubmit = handleSubmit((data) => {
+    console.log(data);
+  });
   return (
-    <Box
-      sx={{
-        padding: isMovile ? "10px" : isTablet ? "20px" : "30px",
-        margin: "auto",
-        width: isMovile ? "80%" : isTablet ? "60%" : "40%",
-        display: "grid",
-        minHeight: isMovile ? "60vh" : isTablet ? "100vh" : "80vh",
-      }}
-    >
+    <BoxMUI>
       <Typography variant="h6" textAlign={"center"}>
         Ingreso solo a personal autorizado
       </Typography>
-      <form
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "center",
-          padding: "20px",
-          borderRadius: "10px",
-          height: "80%",
-          boxShadow: "0 0 10px 0 rgba(0,0,0,0.1)",
-          backgroundColor: "rgba(34, 29, 29, 0.8)",
-        }}
-      >
+      <FormMUI onSubmit={onSubmit}>
         <FormControl
           style={{
             display: "flex",
@@ -42,33 +28,21 @@ export const Login = () => {
             width: "100%",
           }}
         >
-          <TextField
+          <InputMUI
             label="Email"
-            variant="outlined"
-            margin="normal"
-            fullWidth
             type="email"
             name="email"
+            {...register("email", { required: true })}
           />
-          <TextField
+          <InputMUI
             label="Password"
-            variant="outlined"
-            margin="normal"
-            fullWidth
             type="password"
             name="password"
+            {...register("password", { required: true })}
           />
-          <Button
-            variant="outlined"
-            color="primary"
-            fullWidth
-            size={isMovile ? "small" : isTablet ? "medium" : "large"}
-            sx={{ marginTop: "40px" }}
-          >
-            Login
-          </Button>
+          <ButtonMUI type="submit">Ingresar</ButtonMUI>
         </FormControl>
-      </form>
-    </Box>
+      </FormMUI>
+    </BoxMUI>
   );
 };

@@ -1,6 +1,12 @@
 
-export const register = () => {
+
+
+export const Register = () => {
+
+    
+
+    
   return (
-    <div>register</div>
+    <div>Rregister</div>
   )
 }
