@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { ButtonMUI, InputMUI, FormMUI, BoxMUI } from "../../ui";
 
 import { FormControl, Typography } from "@mui/material";
+import { useAuth } from "../../hooks/useAuth";
 
 export const Login = () => {
   const {
@@ -10,8 +11,11 @@ export const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = handleSubmit((data) => {
-    console.log(data);
+  const { login } = useAuth();
+
+  const onSubmit = handleSubmit(async (data) => {
+    const user = await login(data.email, data.password);
+    // console.log(user);
   });
   return (
     <BoxMUI>

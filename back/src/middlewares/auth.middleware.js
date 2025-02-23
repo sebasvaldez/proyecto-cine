@@ -7,7 +7,7 @@ export const isAuth = (req, res, next) => {
     return res.status(401).json({ message: "No autorizado 1" });
   }
 
-  jwt.verify(token, "alagrandelepusecuca2025", (err, decoded) => {
+  jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
     if (err) {
       return res.status(401).json({ message: "No autorizado 2" });
     }

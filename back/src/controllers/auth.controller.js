@@ -1,6 +1,7 @@
 import User from "../models/user.model.js";
 import bcrypt from "bcrypt";
 import { createAccessToken } from "../libs/jwt.js";
+import jwt from "jsonwebtoken";
 
 export const login = async (req, res) => {
   console.log(req.userId);
@@ -69,3 +70,28 @@ export const profile = async (req, res) => {
     res.status(500).send("Error al obtener usuario");
   }
 };
+
+export const verifyToken= async (req, res) =>{
+  const {token} = req.cookies;
+  if(!token) return res.status(400).send("No hay token");
+  try {
+    jwt.verify(token, )
+  } catch (error) {
+    
+  }
+
+
+
+}
+
+
+
+
+
+export const updateProfile = async (req, res) => {
+  try {
+    
+  } catch (error) {
+    
+  }
+}

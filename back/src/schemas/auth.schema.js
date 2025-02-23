@@ -31,6 +31,7 @@ export const registerSchema = z.object({
     .max(70, {
       message: "La contraseña debe tener máximo 70 caracteres",
     }),
+    
 });
 
 export const loginSchema = z.object({

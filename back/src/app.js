@@ -1,12 +1,18 @@
 import express from "express";
 import morgan from "morgan";
+import cors from "cors";
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.routes.js";
 import moviesRoutes from "./routes/movies.routes.js";
+import { FRONTEND_URL } from "./config.js";
 
 const app = express();
 
 //middlewares
+app.use(cors({
+  origin: FRONTEND_URL,
+  credentials: true,
+}))
 app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(express.json());

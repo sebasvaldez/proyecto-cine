@@ -18,4 +18,6 @@ router.post("/register",validateSchema(registerSchema), register);
 
 router.get("/profile",isAuth, profile);
 
+router.get("/verify", )
+
 export default router;
