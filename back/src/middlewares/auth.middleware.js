@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { TOKEN_SECRET } from "../config.js";
 
 export const isAuth = (req, res, next) => {
   const token = req.cookies.token;
@@ -7,8 +8,9 @@ export const isAuth = (req, res, next) => {
     return res.status(401).json({ message: "No autorizado 1" });
   }
 
-  jwt.verify(token, process.env.TOKEN_SECRET, (err, decoded) => {
+  jwt.verify(token, TOKEN_SECRET, (err, decoded) => {
     if (err) {
+      console.log(err);
       return res.status(401).json({ message: "No autorizado 2" });
     }
 
