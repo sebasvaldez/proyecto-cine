@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
-import { AppBar, Box, Toolbar, Typography, Button } from "@mui/material/";
+import { AppBar, Box, Toolbar, Typography } from "@mui/material/";
 import { SwitchDarkMode } from "./SwitchDarkMode";
 import { useAuth } from "../../hooks/useAuth";
+import { ButtonMUI } from "../../ui";
 
 
 export const Navbar = () => {
@@ -27,6 +28,7 @@ export const Navbar = () => {
           </Typography>
 
           <SwitchDarkMode darkMode={darkMode} toggleDarkMode={toggleDarkMode}  />
+         
         </Toolbar>
       </AppBar>
     </Box>

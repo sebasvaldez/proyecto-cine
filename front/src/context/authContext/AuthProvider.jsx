@@ -22,7 +22,8 @@ export const AuthProvider = ({ children }) => {
       setUser(response.data);
       setIsLoading(false);
       setIsAuth(true);
-      localStorage.setItem("userData", JSON.stringify(response.data));
+      return response.data;
+
     } catch (error) {
       console.log(error);
       setError(error.response.data);

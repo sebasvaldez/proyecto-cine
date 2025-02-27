@@ -3,7 +3,6 @@ import { ButtonMUI, InputMUI, FormMUI, BoxMUI } from "../../ui";
 import { useNavigate, Link } from "react-router-dom";
 import { FormControl, Typography } from "@mui/material";
 import { useAuth } from "../../hooks/useAuth";
-import { use } from "react";
 
 export const Login = () => {
   const {
@@ -13,20 +12,14 @@ export const Login = () => {
   } = useForm();
 
   const { login, isLoading, user } = useAuth();
-  const navigate= useNavigate();
-
+  const navigate = useNavigate();
 
   const onSubmit = handleSubmit(async (data) => {
-    
-    await login(data.email, data.password);
-    if(user){
-      navigate("/dashboard");
-    }else{
-      console.log("no user")
-    }
-    
-   
+    const userData= await login(data.email, data.password);
 
+    if (userData) {
+      navigate("/dashboard");
+    }
   });
   return (
     <BoxMUI>

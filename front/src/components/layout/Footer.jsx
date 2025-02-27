@@ -5,9 +5,15 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import WorkIcon from "@mui/icons-material/Work";
 import { useMediaQ } from "../../hooks/useMediaQ";
 import { PopperInfo } from "./PopperInfo";
+import { useAuth } from "../../hooks/useAuth";
 
 export const Footer = () => {
+
+  const {isAuth, logout}= useAuth();
+
+  const options = ["Cartelera", "Proximamente", "Contacto"];
   const { isMovile, isTablet } = useMediaQ();
+
 
   return (
     <Box
@@ -75,47 +81,35 @@ export const Footer = () => {
             justifyContentc: "center",
           }}
         >
-          <Typography
-            sx={{
-              bgcolor: "#333",
-              color: "#808080",
-              paddingLeft: 2,
-            }}
-          >
-            Cartelera
-          </Typography>
-          <Typography
-            sx={{
-              bgcolor: "#333",
-              color: "#808080",
-              paddingLeft: 2,
-            }}
-          >
-            Proximamente
-          </Typography>
-          <Typography
-            sx={{
-              bgcolor: "#333",
-              color: "#808080",
-              paddingLeft: 2,
-            }}
-          >
-            Contacto
-          </Typography>
+          {options.map((option) => {
+            return (
+              <Typography
+                sx={{
+                  bgcolor: "#333",
+                  color: "#808080",
+                  paddingLeft: 2,
+                }}
+                key={option}
+              >
+                {option}
+              </Typography>
+            );
+          })}
 
           <Link
             component={RouterLink}
-            to="/login"
+            to={isAuth ? "/dashboard" : "/login"}
+            onClick={isAuth ? logout : null}
             sx={{ textDecoration: "none" }}
           >
             <Typography
               sx={{
                 bgcolor: "#333",
-                color: "#808080",
+                color: "white",
                 paddingLeft: 2,
               }}
             >
-              Acceso
+              {isAuth ? "Desconectarse" : "Acceso"}
             </Typography>
           </Link>
         </Container>
@@ -127,12 +121,9 @@ export const Footer = () => {
             alignItems: "start",
             flexDirection: "column",
             justifyContentc: "center",
-
           }}
         >
           <PopperInfo />
-
-          
         </Container>
       </Box>
     </Box>
