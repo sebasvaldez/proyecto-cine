@@ -4,6 +4,6 @@ export const loginRequest = async (email, password )=> axiosInstance.post("/logi
 
 export const logoutRequest = async ()=>axiosInstance.post("/logout");
 
-export const verifyTokenRequest = async (token)=>axiosInstance.get("/verifyToken",{token});
+export const verifyTokenRequest = async ()=>axiosInstance.get("/verify", { withCredentials: true });
 
 export const profileRequest = async ()=>axiosInstance.get("/profile");

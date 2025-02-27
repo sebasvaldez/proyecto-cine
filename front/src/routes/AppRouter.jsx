@@ -1,11 +1,12 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { PublicRoutes, PrivateRoutes } from "./";
 import { HomePage, MoviePage, DashboardPage, ProfilePage } from "../pages/";
-
-import React from "react";
 import { LoginPage } from "../pages/LoginPage";
+import { useAuth } from "../hooks/useAuth";
+
 
 export const AppRouter = () => {
+ 
   return (
     <Routes>
       <Route path="/home" element={<HomePage />} />
@@ -31,7 +32,9 @@ export const AppRouter = () => {
       <Route
         path="/dashboard"
         element={
-          <PrivateRoutes>
+          <PrivateRoutes
+          
+          >
             <DashboardPage />
           </PrivateRoutes>
         }

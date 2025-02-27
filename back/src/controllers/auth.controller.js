@@ -10,11 +10,11 @@ export const login = async (req, res) => {
   try {
     const user = await User.findOne({ email });
     if (!user) {
-      return res.status(400).send("Usuario no encontrado");
+      return res.status(400).json([{ message: "Email no encontrado." }]);
     } else {
       const matchPassword = await bcrypt.compare(password, user.password);
       if (!matchPassword) {
-        return res.status(400).send("Contraseña incorrecta");
+        return res.status(400).json([{message: "Contraseña incorrecta."}]);
       } else {
         const token = await createAccessToken({ id: user._id });
         res.cookie("token", token, {
@@ -28,7 +28,7 @@ export const login = async (req, res) => {
     }
   } catch (error) {
     console.error("Error en login:", error);
-    res.status(500).json({ message: "Error interno del servidor" });
+    res.status(500).json([{ message: "Error interno del servidor" }]);
   }
 };
 export const logOut = async (req, res) => {
@@ -71,12 +71,12 @@ export const profile = async (req, res) => {
   try {
     const user = await User.findById(req.userId);
     if (!user) {
-      return res.status(404).send("Usuario no encontrado");
+      return res.status(404).json({ message: "Usuario no encontrado" });
     }
     res.json(user);
   } catch (error) {
     console.log(error);
-    res.status(500).send("Error al obtener usuario");
+    res.status(500).json({ message: "Error interno del servidor" });
   }
 };
 
@@ -85,23 +85,22 @@ export const verifyToken = async (req, res) => {
   console.log(token);
   if (!token) return res.status(400).send("No hay token");
   try {
-    jwt.verify(token, TOKEN_SECRET,async (err, decoded) => {
+    jwt.verify(token, TOKEN_SECRET, async (err, decoded) => {
       if (err) {
         console.log(err);
         return res.status(401).json({ message: "No autorizado 2" });
       }
-      
-      const user= await User.findById(decoded.id);
+
+      const user = await User.findById(decoded.id);
       if (!user) {
         return res.status(404).send("Usuario no encontrado");
       }
       return res.json({
         name: user.name,
         email: user.email,
-        _id: user._id
+        _id: user._id,
+        darkMode: user.darkMode,
       });
-
-
     });
   } catch (error) {
     console.log(error);

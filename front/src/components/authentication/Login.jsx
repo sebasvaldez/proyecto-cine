@@ -1,8 +1,9 @@
 import { useForm } from "react-hook-form";
 import { ButtonMUI, InputMUI, FormMUI, BoxMUI } from "../../ui";
-
+import { useNavigate, Link } from "react-router-dom";
 import { FormControl, Typography } from "@mui/material";
 import { useAuth } from "../../hooks/useAuth";
+import { use } from "react";
 
 export const Login = () => {
   const {
@@ -11,11 +12,21 @@ export const Login = () => {
     formState: { errors },
   } = useForm();
 
-  const { login } = useAuth();
+  const { login, isLoading, user } = useAuth();
+  const navigate= useNavigate();
+
 
   const onSubmit = handleSubmit(async (data) => {
-    const user = await login(data.email, data.password);
-    // console.log(user);
+    
+    await login(data.email, data.password);
+    if(user){
+      navigate("/dashboard");
+    }else{
+      console.log("no user")
+    }
+    
+   
+
   });
   return (
     <BoxMUI>

@@ -7,13 +7,13 @@ import {
   profileRequest,
 } from "../../api/authApi";
 import Cookies from "js-cookie";
-import { useNavigate, Link } from "react-router-dom";
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   const [darkMode, setDarkMode] = useState(true);
-
+  const [error, setError] = useState([]);
+  const [isAuth, setIsAuth] = useState(false);
 
   const login = async (email, password) => {
     setIsLoading(true);
@@ -21,9 +21,13 @@ export const AuthProvider = ({ children }) => {
       const response = await loginRequest(email, password);
       setUser(response.data);
       setIsLoading(false);
+      setIsAuth(true);
+      localStorage.setItem("userData", JSON.stringify(response.data));
     } catch (error) {
       console.log(error);
+      setError(error.response.data);
       setIsLoading(false);
+      setIsAuth(false);
     }
   };
 
@@ -33,27 +37,51 @@ export const AuthProvider = ({ children }) => {
       await logoutRequest();
       Cookies.remove("token");
       setUser(null);
+      setIsLoading(false);
+      setIsAuth(false);
+      localStorage.removeItem("userData");
     } catch (error) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
-  
-
-  const profile = async ()=>{
+  const verifyToken= async () => {
     setIsLoading(true);
     try {
-      const response = await profileRequest();
-      console.log(response)
+      const response = await verifyTokenRequest();
+      // console.log(response.data)
+      if(response){
       setUser(response.data);
       setIsLoading(false);
+      setIsAuth(true);
+      }
+      return response.data;
+
     } catch (error) {
       console.log(error);
       setIsLoading(false);
+      setIsAuth(false);
     }
   }
 
-  console.log(user);
+
+  useEffect(() => {
+    const token = Cookies.get("token");
+    if (token) {
+      setIsLoading(true);
+      const dataUser= verifyToken()
+      if(dataUser){
+        setIsAuth(true);
+        setIsLoading(false);
+        setUser(dataUser);
+      }
+        
+    } else {
+      setIsAuth(false);
+      setIsLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
     if (user) {
@@ -61,19 +89,7 @@ export const AuthProvider = ({ children }) => {
     } else {
       setDarkMode(true);
     }
-  }, [user]);
-
- 
-
-
-
-  useEffect(()=>{
-    if(Cookies.get("token")){
-      profile();
-    }
-    
-  },[]);
-
+  }, []);
 
   return (
     <AuthContext.Provider
@@ -84,7 +100,8 @@ export const AuthProvider = ({ children }) => {
         setDarkMode,
         login,
         logout,
-
+        error,
+        isAuth,
       }}
     >
       {children}
