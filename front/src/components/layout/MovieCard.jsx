@@ -9,7 +9,7 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import ShareIcon from "@mui/icons-material/Share";
 import { useMediaQ } from "../../hooks/useMediaQ";
 
-export const MovieCard = ({ image }) => {
+export const MovieCard = ({ coverUrl,title }) => {
 
   const {isMovile, isTablet} = useMediaQ();
 
@@ -18,7 +18,7 @@ export const MovieCard = ({ image }) => {
       <CardMedia
         component="img"
         height="100%"
-        image={image}
+        image={coverUrl}
         alt="Portada de película"
       />
       <CardHeader
@@ -28,7 +28,7 @@ export const MovieCard = ({ image }) => {
           fontSize: isMovile ? "1.1rem" : isTablet ? "1.3rem" : "1.5rem",
           fontWeight: "bold",
         } }}
-        title="Gladiador"
+        title={title}
       />
 
       {/* <CardActions sx={{ padding: 0 }} disableSpacing>

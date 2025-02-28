@@ -41,6 +41,11 @@ const movieSchema = new mongoose.Schema(
       required: true,
       trim: true,
     },
+    onBillboard:{
+      type: Boolean,
+      required: true,
+      default: false,
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
