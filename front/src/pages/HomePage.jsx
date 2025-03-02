@@ -2,17 +2,13 @@ import { Box, Typography } from "@mui/material";
 import { MainCarousel } from "../components/layout/emblaCarousel/MainCarousel";
 import { MovieCard } from "../components/layout/MovieCard";
 import { useMediaQ } from "../hooks/useMediaQ";
-import gladiador from "../assets/front-page/gladiador.jpg";
-import proximoEstreno from "../assets/front-page/proximoEstreno.jpg";
 import { useMovies } from "../hooks/useMovies";
-import { useEffect } from "react";
+import { Loading } from "../ui/";
 
 export const HomePage = () => {
   const { isMovile, isTablet } = useMediaQ();
   const { onBillboard, comingSoon, loadingMovies } = useMovies();
 
-  console.log(onBillboard);
-  console.log(comingSoon);
 
   return (
     <Box>
@@ -46,13 +42,14 @@ export const HomePage = () => {
         }}
       >
         {loadingMovies ? (
-          <Typography>Cargando...</Typography>
+          <Loading />
         ) : (
           onBillboard.map((movie) => (
             <MovieCard
               key={movie._id}
               coverUrl={movie.coverUrl}
               title={movie.title}
+              id={movie._id}
             />
           ))
         )}
@@ -85,13 +82,14 @@ export const HomePage = () => {
         }}
       >
         {loadingMovies ? (
-          <Typography>Cargando...</Typography>
+          <Loading />
         ) : (
           comingSoon.map((movie) => (
             <MovieCard
               key={movie._id}
               coverUrl={movie.coverUrl}
               title={movie.title}
+              id={movie._id}
             />
           ))
         )}

@@ -12,6 +12,7 @@ const app = express();
 app.use(cors({
   origin: FRONTEND_URL,
   credentials: true,
+  allowedHeaders: ["Content-Type", "Authorization"],
   
 }))
 app.use(morgan("dev"));
