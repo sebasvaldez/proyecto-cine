@@ -18,10 +18,21 @@ export const MoviePage = () => {
       sx={{
         display: "flex",
         justifyContent: "space-around",
-        flexDirection: isMovile ? "column-reverse" : "row",
+        flexDirection: isMovile ? "column" : "row",
         alignItems: "center",
       }}
     >
+      {/* Trailer  */}
+      <Grid2>
+        <ReactPlayer
+          url={movie?.trailerUrl}
+          controls
+          width={isMovile ? "380px" : isTablet ? "420px" : "600px"}
+          height={isMovile ? "250px" : isTablet ? "300px" : "400px"}
+        />
+      </Grid2>
+
+      {/* este grid es de la imagen de portada y la info de la pelicula */}
       <Grid2
         sx={{
           display: "flex",
@@ -56,25 +67,65 @@ export const MoviePage = () => {
             textAlign: "start",
           }}
         >
-          <Typography variant="h5">{movie?.title}</Typography>
-          <Typography>
-            Género: {movie?.genre.map((genre) => genre + ", ")}
+          <Typography
+            variant="h6"
+            sx={{
+              textAlign: isMovile ? "center" : "start",
+              fontWeight: "bolder",
+            }}
+          >
+            {movie?.title}
           </Typography>
           <Typography>
-            Duración:Actores: {movie?.cast.map((actor) => actor + ", ")}{" "}
+            <Typography
+              variant="span"
+              sx={{ color: "gray", fontWeight: "bold" }}
+            >
+              Género:
+            </Typography>
+
+            {movie?.genre.map((genre) => genre + ", ")}
           </Typography>
-          <Typography>Director: {movie?.director}</Typography>
-          <Typography>Duración: {movie?.duration} minutos.</Typography>
+
+          <Typography>
+            <Typography
+              variant="span"
+              sx={{ color: "gray", fontWeight: "bold" }}
+            >
+              Reparto:
+            </Typography>
+            {movie?.cast.map((actor) => actor + ", ")}
+          </Typography>
+          <Typography>
+            <Typography
+              variant="span"
+              sx={{ color: "gray", fontWeight: "bold" }}
+            >
+              Duración:
+            </Typography>
+            {movie?.duration} minutos.
+          </Typography>
+          <Typography>
+            <Typography
+              variant="span"
+              sx={{ color: "gray", fontWeight: "bold" }}
+            >
+              Director:
+            </Typography>
+            {movie?.director}
+          </Typography>
         </Grid2>
+       
       </Grid2>
+
       <Grid2>
-        <ReactPlayer
-          url={movie?.trailerUrl}
-          controls
-          width={isMovile ? "380px" : isTablet ? "420px" : "600px"}
-          height={isMovile ? "250px" : isTablet ? "300px" : "400px"}
-        />
+        <Typography variant="p" sx={{ textAlign: "justify", fontSize: "1.1rem" }}>
+          {movie?.synopsis}
+
+        </Typography>
       </Grid2>
+      
+
     </Container>
   );
 };

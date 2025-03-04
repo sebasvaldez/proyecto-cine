@@ -9,12 +9,13 @@ import { FRONTEND_URL } from "./config.js";
 const app = express();
 
 //middlewares
-app.use(cors({
-  origin: FRONTEND_URL,
-  credentials: true,
-  allowedHeaders: ["Content-Type", "Authorization"],
-  
-}))
+app.use(
+  cors({
+    origin: FRONTEND_URL,
+    credentials: true,
+    
+  })
+);
 app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(express.json());

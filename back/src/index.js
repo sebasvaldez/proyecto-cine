@@ -1,11 +1,12 @@
 import app from "./app.js"
 import {connectDB} from"./db.js"
+import {PORT} from "./config.js"
 
 
 connectDB()
 
-
-app.listen(4000,()=>{
-    console.log("Server on port ", 4000)
+const IP="0.0.0.0"
+app.listen(PORT,IP,()=>{
+    console.log("Server on port ", PORT)
 
 })

@@ -2,7 +2,6 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { PublicRoutes, PrivateRoutes } from "./";
 import { HomePage, MoviePage, DashboardPage, ProfilePage } from "../pages/";
 import { LoginPage } from "../pages/LoginPage";
-import { useAuth } from "../hooks/useAuth";
 
 
 export const AppRouter = () => {

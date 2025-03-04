@@ -31,7 +31,7 @@ export const CinemaApp = () => {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
-            justifyContent: "center",
+            justifyContent: "start",
             marginX: isMovile ? 0 : isTablet || isDesktop ? 4 : 5,
             marginTop: 2,
           }}
