@@ -1,8 +1,18 @@
 import { useParams } from "react-router-dom";
 import { useMovies } from "../hooks/useMovies";
-import { Card, CardMedia, Container, Grid2, Typography } from "@mui/material";
+import {
+  Card,
+  CardMedia,
+  Container,
+  Grid2,
+  Typography,
+  Box,
+  Button,
+} from "@mui/material";
 import ReactPlayer from "react-player/youtube";
 import { useMediaQ } from "../hooks/useMediaQ";
+import { useState } from "react";
+import { CardImage, MovieDescription } from "../components/movieComponents/";
 
 export const MoviePage = () => {
   const { id } = useParams();
@@ -10,7 +20,18 @@ export const MoviePage = () => {
   const { isMovile, isTablet, isDesktop } = useMediaQ();
   const movie = movies.find((movie) => movie._id === id);
 
-  console.log(movie);
+  const [selectedTime, setSelectedTime] = useState(null);
+  const [selectedDay, setSelectedDay] = useState(null);
+
+  const handleDaySelect = (day) => {
+    setSelectedDay((prevDay) => (prevDay === day ? null : day));
+  };
+
+  const handleTimeSelect = (time) => {
+    setSelectedTime((prevTime) => (prevTime === time ? null : time));
+  };
+
+  //console.log(movie);
   // console.log(id)
 
   return (
@@ -44,88 +65,112 @@ export const MoviePage = () => {
           width: "100%",
         }}
       >
-        <Card
-          sx={{
-            maxWidth: isMovile ? "160px" : isTablet ? "420px" : "400px",
-            maxHeight: isMovile ? "230" : isTablet ? "560px" : "550px",
-          }}
-        >
-          <CardMedia
-            component="img"
-            height="100%"
-            image={movie?.coverUrl}
-            alt={movie?.title}
-          />
-        </Card>
-        <Grid2
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "start",
-            flexDirection: "column",
-            width: "100%",
-            textAlign: "start",
-          }}
-        >
-          <Typography
-            variant="h6"
-            sx={{
-              textAlign: isMovile ? "center" : "start",
-              fontWeight: "bolder",
-            }}
-          >
-            {movie?.title}
-          </Typography>
-          <Typography>
-            <Typography
-              variant="span"
-              sx={{ color: "gray", fontWeight: "bold" }}
-            >
-              Género:
-            </Typography>
+        <CardImage movie={movie} />
 
-            {movie?.genre.map((genre) => genre + ", ")}
-          </Typography>
-
-          <Typography>
-            <Typography
-              variant="span"
-              sx={{ color: "gray", fontWeight: "bold" }}
-            >
-              Reparto:
-            </Typography>
-            {movie?.cast.map((actor) => actor + ", ")}
-          </Typography>
-          <Typography>
-            <Typography
-              variant="span"
-              sx={{ color: "gray", fontWeight: "bold" }}
-            >
-              Duración:
-            </Typography>
-            {movie?.duration} minutos.
-          </Typography>
-          <Typography>
-            <Typography
-              variant="span"
-              sx={{ color: "gray", fontWeight: "bold" }}
-            >
-              Director:
-            </Typography>
-            {movie?.director}
-          </Typography>
-        </Grid2>
-       
+        <MovieDescription movie={movie} />
       </Grid2>
 
       <Grid2>
-        <Typography variant="p" sx={{ textAlign: "justify", fontSize: "1.1rem" }}>
+        <Typography
+          variant="p"
+          sx={{ textAlign: "justify", fontSize: "1.1rem" }}
+        >
           {movie?.synopsis}
-
         </Typography>
       </Grid2>
-      
+      <Box
+        sx={{
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          flexDirection: "column",
 
+          alignItems: "center",
+          marginTop: 4,
+        }}
+      >
+        {/* Elegir hora de la funcion */}
+        <Grid2
+          sx={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            gap: 2,
+            width: "100%",
+            marginY: 2,
+          }}
+        >
+          {["14:00", "16:00", "18:00"].map((time) => {
+            return (
+              <Button
+                key={time}
+                sx={{
+                  color: "white",
+                  width: "80px",
+                  height: "80px",
+                  backgroundColor:
+                    selectedTime === time ? "#1975c6" : "transparent",
+                }}
+                variant="outlined"
+                onClick={() => handleTimeSelect(time)}
+              >
+                {time}
+              </Button>
+            );
+          })}
+        </Grid2>
+
+        {/* Elegir día de la función */}
+        <Grid2
+          sx={{
+            display: "flex",
+            justifyContent: "space-evenly",
+            alignItems: "center",
+            gap: 2,
+            width: "100%",
+            arginY: 2,
+          }}
+        >
+          {["Lunes", "Martes", "Miercoles"].map((day) => {
+            return (
+              <Button
+                key={day}
+                sx={{
+                  color: "white",
+                  width: "80px",
+                  height: "80px",
+                  backgroundColor:
+                    selectedDay === day ? "#1975c6" : "transparent",
+                }}
+                variant="outlined"
+                onClick={() => handleDaySelect(day)}
+              >
+                {day}
+              </Button>
+            );
+          })}
+        </Grid2>
+        {/* Boton de compra */}
+        <Button
+          variant="contained"
+          disabled={!selectedTime || !selectedDay}
+          sx={{
+            backgroundColor: "#1975c6",
+            color: "white",
+            fontWeight: "bold",
+            marginTop: 4,
+            width: "70%",
+            marginBottom: 4,
+          }}
+          onClick={() => {
+            alert(
+              `Compra confirmada para el día ${selectedDay} a las ${selectedTime}`
+            );
+          }}
+        >
+          Continar con la compra
+        </Button>
+      </Box>
     </Container>
   );
 };
