@@ -49,6 +49,11 @@ export const MovieDescription = ({ movie }) => {
         </Typography>
         {movie?.director}
       </Typography>
+      {!isMovile && (
+        <Typography sx={{ marginTop: 2, fontSize: "1rem" }}>
+          {movie?.synopsis}
+        </Typography>
+      )}
     </Grid2>
   );
 };

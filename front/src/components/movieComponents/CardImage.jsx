@@ -6,8 +6,8 @@ export const CardImage = ({ movie }) => {
   return (
     <Card
       sx={{
-        maxWidth: isMovile ? "160px" : isTablet ? "420px" : "400px",
-        maxHeight: isMovile ? "230" : isTablet ? "560px" : "550px",
+        maxWidth: isMovile ? "160px" : isTablet ? "300px" : "400px",
+        maxHeight: isMovile ? "230" : isTablet ? "430px" : "550px",
       }}
     >
       <CardMedia
